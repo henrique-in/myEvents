@@ -68,7 +68,13 @@ export const AuthProvider: React.FC<ChildrenProps> = ({ children }) => {
          );
          if (account) {
             account[0].password === data.password
-               ? setData({ user: account[0] })
+               ? setTimeout(async () => {
+                    setData({ user: account[0] });
+                    await AsyncStorage.setItem(
+                       '@myEvents:user',
+                       JSON.stringify(account[0]),
+                    );
+                 }, 200)
                : Alert.alert('Senha incorreta');
          }
       }

@@ -14,6 +14,7 @@ export const PrivateRoutes = () => (
          headerShown: false,
          tabBarActiveTintColor: colors.primary,
          tabBarInactiveTintColor: colors.pallete.metallicSilver,
+         tabBarLabelStyle: { fontSize: 12 },
          tabBarStyle: {
             backgroundColor: colors.background,
             ...Platform.select({
@@ -37,8 +38,29 @@ export const PrivateRoutes = () => (
          component={Home}
          options={{
             tabBarLabel: 'Home',
+
             tabBarIcon: ({ color }) => (
                <AntDesign name="home" size={24} color={color} />
+            ),
+         }}
+      />
+      <Tab.Screen
+         name="myEvents"
+         component={Home}
+         options={{
+            tabBarLabel: 'Meus eventos',
+            tabBarIcon: ({ color }) => (
+               <AntDesign name="calendar" size={24} color={color} />
+            ),
+         }}
+      />
+      <Tab.Screen
+         name="account"
+         component={Home}
+         options={{
+            tabBarLabel: 'Minha conta',
+            tabBarIcon: ({ color }) => (
+               <AntDesign name="user" size={24} color={color} />
             ),
          }}
       />
