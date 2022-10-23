@@ -1,9 +1,9 @@
 import React from 'react';
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Platform } from 'react-native';
 import { colors } from '~/theme/colors';
-import { Home } from '~/screens';
+import { Home, MySubscriptions } from '~/screens';
 
 const Tab = createBottomTabNavigator();
 
@@ -16,6 +16,7 @@ export const PrivateRoutes = () => (
          tabBarInactiveTintColor: colors.pallete.metallicSilver,
          tabBarLabelStyle: { fontSize: 12 },
          tabBarStyle: {
+            paddingTop: 10,
             backgroundColor: colors.background,
             ...Platform.select({
                android: {
@@ -37,20 +38,19 @@ export const PrivateRoutes = () => (
          name="Home"
          component={Home}
          options={{
-            tabBarLabel: 'Home',
-
+            tabBarLabel: '',
             tabBarIcon: ({ color }) => (
                <AntDesign name="home" size={24} color={color} />
             ),
          }}
       />
       <Tab.Screen
-         name="myEvents"
-         component={Home}
+         name="mySubscriptions"
+         component={MySubscriptions}
          options={{
-            tabBarLabel: 'Meus eventos',
+            tabBarLabel: '',
             tabBarIcon: ({ color }) => (
-               <AntDesign name="calendar" size={24} color={color} />
+               <MaterialIcons name="event-available" size={28} color={color} />
             ),
          }}
       />
@@ -58,7 +58,7 @@ export const PrivateRoutes = () => (
          name="account"
          component={Home}
          options={{
-            tabBarLabel: 'Minha conta',
+            tabBarLabel: '',
             tabBarIcon: ({ color }) => (
                <AntDesign name="user" size={24} color={color} />
             ),

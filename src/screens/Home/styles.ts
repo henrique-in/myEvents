@@ -1,16 +1,43 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import { colors } from "~/theme/colors";
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop:40,
-    paddingHorizontal:10
+    backgroundColor:colors.background
   },
   title:{
-    fontSize:24,
-    paddingTop:20,
-    fontWeight:"bold"
-  }
+   fontSize: 25,
+   fontWeight: '700',
+   color: colors.textH1,
+   paddingVertical: 10,
+},
+  content:{
+    flex:1,
+    paddingHorizontal:10,
+  },
+
+  inputContent:{
+    backgroundColor: colors.background,
+    borderTopWidth: 0,
+    borderBottomWidth: 0,
+  
+    marginVertical: 10,
+    borderRadius: 10,
+    ...Platform.select({
+       android: {
+          elevation: 3,
+       },
+       ios: {
+          shadowColor: '#000',
+          shadowOffset: {
+             width: 0,
+             height: 2,
+          },
+          shadowOpacity: 0.2,
+          shadowRadius: 3.84,
+       },
+    }),
+ }
 
 });

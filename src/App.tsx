@@ -6,8 +6,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { colors } from './theme/colors';
 import AppProvider from './hooks';
 import Routes from './router';
+import 'moment/locale/pt-br';
+import moment from 'moment';
 
 SplashScreen.preventAutoHideAsync();
+moment.locale('pt-br');
 export default function App() {
    const [appIsReady, setAppIsReady] = useState(false);
 
