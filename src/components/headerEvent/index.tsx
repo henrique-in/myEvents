@@ -15,14 +15,16 @@ export const HeaderEvent: React.FC<Props> = ({ title }) => {
    return (
       <View style={styles.container}>
          <View style={styles.content}>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
+            <TouchableOpacity
+               style={{ flexDirection: 'row', alignItems: 'center' }}
+               onPress={() => navigation.goBack()}>
                <Entypo
                   name="chevron-small-left"
                   size={40}
                   color={colors.pallete.white}
                />
+               <Text style={styles.title}>{title}</Text>
             </TouchableOpacity>
-            <Text style={styles.title}>{title}</Text>
          </View>
       </View>
    );

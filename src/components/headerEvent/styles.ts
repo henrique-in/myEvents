@@ -3,7 +3,7 @@ import { colors } from "~/theme/colors";
 
 export const styles = StyleSheet.create({
   container:{
-    height: 90,
+    height: '12%',
     width:'100%',
     backgroundColor: colors.primary,
     paddingTop:30,

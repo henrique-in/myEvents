@@ -5,7 +5,8 @@ export const colors = {
   secondary:pallete.orange,
   textH1:pallete.darkCharcoal,
   textH2:pallete.metallicSilver,
-  background:pallete.white,
+  background:pallete.whiteSmoke,
+  backgroundSecondary:pallete.white,
   errors:pallete.red,
   pallete:pallete
 }

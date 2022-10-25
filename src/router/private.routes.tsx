@@ -3,12 +3,13 @@ import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Platform } from 'react-native';
 import { colors } from '~/theme/colors';
-import { EventDetails, Home, MySubscriptions } from '~/screens';
+import { EventDetails, Home, MySubscriptions, Ticket } from '~/screens';
 import { createStackNavigator } from '@react-navigation/stack';
 
 const Tab = createBottomTabNavigator();
 
 const HomeStack = createStackNavigator();
+const SubscriptionStack = createStackNavigator();
 
 export const PrivateRoutes = () => (
    <Tab.Navigator
@@ -49,7 +50,7 @@ export const PrivateRoutes = () => (
       />
       <Tab.Screen
          name="mySubscriptions"
-         component={MySubscriptions}
+         component={SubscriptionScreens}
          options={{
             tabBarLabel: '',
             tabBarIcon: ({ color }) => (
@@ -76,5 +77,17 @@ const HomeScreens = () => {
          <HomeStack.Screen name="Home" component={Home} />
          <HomeStack.Screen name="EventDetails" component={EventDetails} />
       </HomeStack.Navigator>
+   );
+};
+
+const SubscriptionScreens = () => {
+   return (
+      <SubscriptionStack.Navigator screenOptions={{ headerShown: false }}>
+         <SubscriptionStack.Screen
+            name="Subscriptions"
+            component={MySubscriptions}
+         />
+         <SubscriptionStack.Screen name="Ticket" component={Ticket} />
+      </SubscriptionStack.Navigator>
    );
 };

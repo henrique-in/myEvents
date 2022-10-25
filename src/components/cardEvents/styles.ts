@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
     borderRadius:10,
     paddingHorizontal:10,
     paddingVertical:10,
-    backgroundColor:colors.background,
+    backgroundColor:colors.backgroundSecondary,
     ...Platform.select({
       android: {
          elevation: 3,

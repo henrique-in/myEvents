@@ -77,6 +77,8 @@ export const AuthProvider: React.FC<ChildrenProps> = ({ children }) => {
                  }, 200)
                : Alert.alert('Senha incorreta');
          }
+      } else {
+         Alert.alert('Usuário não cadastrado');
       }
    }, []);
 
@@ -102,7 +104,7 @@ export const AuthProvider: React.FC<ChildrenProps> = ({ children }) => {
          email: data.email,
       };
 
-      const users = result ? [...userRegisters, data] : [data];
+      const users = result ? [...userRegisters, userData] : [userData];
 
       setTimeout(async () => {
          await AsyncStorage.multiSet([

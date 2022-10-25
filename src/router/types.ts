@@ -7,5 +7,6 @@ export type RootStackParamsPrivate= {
   Home: undefined;
   mySubscription: { params: any };
   EventDetails:{ params: any };
+  Ticket:{ params: any };
  
 };

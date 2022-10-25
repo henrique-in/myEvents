@@ -19,6 +19,7 @@ import * as Yup from 'yup';
 import { Button } from '@rneui/base';
 import { colors } from '~/theme/colors';
 import { EventProps, useAppData } from '~/hooks/appData';
+import { useAuth } from '~/hooks/auth';
 
 const purchaseSchema = Yup.object().shape({
    numberCard: Yup.string()
@@ -47,6 +48,7 @@ interface Props {
 }
 
 export const FormPurchase: React.FC<Props> = ({ item, nextStep, onCancel }) => {
+   const { user } = useAuth();
    const { handleSubscribe } = useAppData();
    const [loading, setLoading] = useState(false);
    const initialValues: PurchaseFormValues = {
@@ -70,7 +72,7 @@ export const FormPurchase: React.FC<Props> = ({ item, nextStep, onCancel }) => {
       onSubmit: values =>
          new Promise(async () => {
             setLoading(true);
-            handleSubscribe(item);
+            handleSubscribe(item, user.id);
             setTimeout(() => {
                setLoading(false);
                nextStep();

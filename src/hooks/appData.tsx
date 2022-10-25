@@ -7,6 +7,7 @@ import React, {
 } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ChildrenProps } from '.';
+import { useAuth } from './auth';
 
 export interface EventProps {
    id: string;
@@ -19,14 +20,14 @@ export interface EventProps {
    description: string;
    address: string;
    city: string;
-   amount: string;
+   price: string;
 }
 
 interface AppDataContextData {
    eventsData: EventProps[];
-   mySubscription: EventProps[];
-   handleSubscribe: (item: EventProps) => void;
-   handleUnsubscribe: (item: EventProps) => void;
+   mySubscriptionData: EventProps[];
+   handleSubscribe: (item: EventProps, userId: string | number[]) => void;
+   handleUnsubscribe: (item: EventProps, userId: string | number[]) => void;
 }
 
 const AppDataContext = createContext<AppDataContextData>(
@@ -41,45 +42,57 @@ export const AppDataProvider: React.FC<ChildrenProps> = ({ children }) => {
 
    useEffect(() => {
       async function loadStorageData(): Promise<void> {
-         const mySubscription = await AsyncStorage.getItem(
-            '@myEvents:subscription',
-         );
-         if (mySubscription) {
-            setSubscription(JSON.parse(mySubscription));
+         const result = await AsyncStorage.getItem('@myEvents:user');
+         const userData = JSON.parse(result);
+         if (userData) {
+            const mySubscription = await AsyncStorage.getItem(
+               `@myEvents:subscription${userData.id}`,
+            );
+            if (mySubscription) {
+               setSubscription(JSON.parse(mySubscription));
+            }
          }
       }
 
       loadStorageData();
    }, []);
 
-   const handleSubscribe = useCallback(async (item: EventProps) => {
-      // console.log(item);
-      if (subscription) {
-         const aux = [...subscription, item];
-         setSubscription(aux);
+   const handleSubscribe = useCallback(
+      async (item: EventProps, userId: string) => {
+         if (subscription) {
+            const aux = [...subscription, item];
+            setSubscription(aux);
 
+            await AsyncStorage.setItem(
+               `@myEvents:subscription${userId}`,
+               JSON.stringify(aux),
+            );
+         } else {
+            setSubscription([item]);
+            await AsyncStorage.setItem(
+               `@myEvents:subscription${userId}`,
+               JSON.stringify(item),
+            );
+         }
+      },
+      [],
+   );
+
+   const handleUnsubscribe = useCallback(
+      async (item: EventProps, userId: string) => {
+         const aux = subscription.filter(data => data.id !== item.id);
+         setSubscription(aux);
          await AsyncStorage.setItem(
-            '@myEvents:subscription',
+            `@myEvents:subscription${userId}`,
             JSON.stringify(aux),
          );
-      } else {
-         setSubscription([item]);
-         await AsyncStorage.setItem(
-            '@myEvents:subscription',
-            JSON.stringify(item),
-         );
-      }
-   }, []);
+      },
+      [],
+   );
 
-   const handleUnsubscribe = useCallback(async (item: EventProps) => {
-      const aux = subscription.filter(data => data.id !== item.id);
-      setSubscription(aux);
-      await AsyncStorage.setItem('@myEvents:subscription', JSON.stringify(aux));
-   }, []);
-
-   const loadSubscription = async () => {
+   const loadSubscription = async (userId: string) => {
       const mySubscription = await AsyncStorage.getItem(
-         '@myEvents:subscription',
+         `@myEvents:subscription${userId}`,
       );
       return mySubscription ? JSON.parse(mySubscription) : [];
    };
@@ -88,7 +101,7 @@ export const AppDataProvider: React.FC<ChildrenProps> = ({ children }) => {
       <AppDataContext.Provider
          value={{
             eventsData: data,
-            mySubscription: subscription,
+            mySubscriptionData: subscription,
             handleUnsubscribe,
             handleSubscribe,
          }}>

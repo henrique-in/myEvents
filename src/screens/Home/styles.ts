@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
   },
 
   inputContent:{
-    backgroundColor: colors.background,
+    backgroundColor: colors.backgroundSecondary,
     borderTopWidth: 0,
     borderBottomWidth: 0,
   

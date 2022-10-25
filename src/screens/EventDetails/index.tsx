@@ -12,7 +12,7 @@ import { ModalPurchase } from './components/modalPurchase';
 import { useAppData } from '~/hooks/appData';
 
 export const EventDetails: React.FC = () => {
-   const { mySubscription, eventsData } = useAppData();
+   const { mySubscriptionData, eventsData } = useAppData();
    const route = useRoute();
    const { params } = route.params;
    const [modalVisible, setModalVisible] = useState(false);
@@ -26,7 +26,9 @@ export const EventDetails: React.FC = () => {
    };
 
    useEffect(() => {
-      const verify = mySubscription.filter(item => item.id === params.id);
+      const verify = mySubscriptionData.filter(
+         (item: { id: any }) => item.id === params.id,
+      );
 
       if (verify.length > 0) {
          setIsRegistered(true);
@@ -63,7 +65,7 @@ export const EventDetails: React.FC = () => {
                         color="black"
                      />
                   }
-                  title={params.amount}
+                  title={params.price}
                />
             </View>
 
