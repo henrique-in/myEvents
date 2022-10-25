@@ -1,0 +1,42 @@
+[
+  {
+    "id":"1",
+    "image":"https://images.sympla.com.br/634071433e247-xs.jpg",
+    "title": "II JORNADA DE ODONTOLOGIA - UNIVERSIDADE SANTA ÚRSULA",
+    "online": false,
+    "startDate": "2022-11-09",
+    "endDate":"2022-11-10",
+    "time": "08:00 - 19:00",
+    "description":"II JORNADA DE ODONTOLOGIA - UNIVERSIDADE SANTA ÚRSULA PALESTRAS, EXPOSIÇÃO CIENTÍFICA, SORTEIOS.",
+    "address":"Rua Fernando Ferrari, 75, UNIVERSIDADE SANTA ÚRSULA - SALÃO AZUL",
+    "city":"Botafogo - Rio de Janeiro, RJ",
+    "price":"R$ 10,00"
+  },
+  {
+    "id":"2",
+    "image":"https://images.sympla.com.br/6313a0eee30af-xs.jpg",
+    "title": "XI Jornada Acadêmica de Medicina da Universidade de Itaúna",
+    "online": false,
+    "startDate": "2022-11-16",
+    "endDate":"2022-11-18",
+    "time": "18:00 - 23:00",
+    "description":"O tema proposto para esse ano é “FORMAÇÃO MÉDICA: UMA VISÃO HUMANIZADA DO CUIDADO”, e a data para o evento é 16, 17 e 18 de novembro de 2022. Além da participação do DALASS e da Comissão Organizadora na promoção da IX JAM, tivemos a orientação do ilustre Doutor William Antônio Magalhães Esteves.",
+    "address":"Universidade de Itaúna - Rodovia MG 431 Km 45, s/n , Grande Teatro da Universidade de Itaúna",
+    "city":"Eldorado Itaúna, MG",
+    "price":"R$ 15,00"
+  },
+  {
+    "id":"3",
+    "image":"https://images.sympla.com.br/623261f4b8752-xs.png",
+    "title": "CASE 2022 - Conferência Anual de Startups e Empreendedorismo",
+    "online": false,
+    "startDate": "2022-11-17",
+    "endDate":"2022-11-18",
+    "time": "09:00 - 22:00",
+    "description":"O CASE é uma oportunidade imperdível para uma maior interação entre os membros do ecossistema de inovação. Em 2022, o evento irá acontecer nos dias 17 e 18 de novembro e tem a estimativa de atrair mais de 15 mil participantes e trazer os principais conteúdos e tendências do mercado, assim como, a cerimônia do Startup Awards, tradicional premiação que reconhece os principais agentes do cenário de empreendedorismo e inovação brasileiro.",
+    "address":"Transamerica Expo Center - Avenida Doutor Mário Vilas Boas Rodrigues, 387 ",
+    "city":"Santo Amaro, SP",
+    "price":"R$ 20,00"
+    
+  }
+]
