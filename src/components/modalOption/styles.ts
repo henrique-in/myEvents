@@ -10,23 +10,18 @@ export const styles = StyleSheet.create({
  },
  modalContainer: {
     backgroundColor: colors.background,
-    minHeight: '50%',
-    maxHeight:'60%',
-    width: '90%',
+    height: '20%',
+    width: '80%',
     borderRadius: 10,
-    paddingVertical:10,
-    paddingHorizontal:10,
- },
- divider: {
-    width: '100%',
-    height: 0.5,
-    backgroundColor: colors.pallete.black,
+   
+
  },
  modalInformation: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-evenly',
-    paddingVertical: 0,
+    paddingHorizontal:10,
+    borderBottomWidth:0.5
  },
  title: {
     color: colors.textH1,
@@ -34,11 +29,23 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: 'center',
  } ,
- button: {
-    paddingVertical: 10,
-    width: '100%',
-    alignItems: 'center',
- },
+ footer:{
+   height: '30%',
+   flexDirection: 'row',
+   alignItems: 'center',
+   justifyContent: 'space-around',
+},
+ button:{
+   width: '50%',
+   height: '100%',
+   alignItems: 'center',
+   justifyContent: 'center',
+},
+divider:{
+   height: '100%',
+   width: 0.5,
+   backgroundColor: colors.pallete.black,
+}
  
 
 });

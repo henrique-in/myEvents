@@ -26,8 +26,8 @@ export interface EventProps {
 interface AppDataContextData {
    eventsData: EventProps[];
    mySubscriptionData: EventProps[];
-   handleSubscribe: (item: EventProps, userId: string | number[]) => void;
-   handleUnsubscribe: (item: EventProps, userId: string | number[]) => void;
+   subscribe: (item: EventProps, userId: any) => void;
+   unSubscribe: (item: EventProps, userId: any) => void;
 }
 
 const AppDataContext = createContext<AppDataContextData>(
@@ -57,38 +57,32 @@ export const AppDataProvider: React.FC<ChildrenProps> = ({ children }) => {
       loadStorageData();
    }, []);
 
-   const handleSubscribe = useCallback(
-      async (item: EventProps, userId: string) => {
-         if (subscription) {
-            const aux = [...subscription, item];
-            setSubscription(aux);
-
-            await AsyncStorage.setItem(
-               `@myEvents:subscription${userId}`,
-               JSON.stringify(aux),
-            );
-         } else {
-            setSubscription([item]);
-            await AsyncStorage.setItem(
-               `@myEvents:subscription${userId}`,
-               JSON.stringify(item),
-            );
-         }
-      },
-      [],
-   );
-
-   const handleUnsubscribe = useCallback(
-      async (item: EventProps, userId: string) => {
-         const aux = subscription.filter(data => data.id !== item.id);
+   const subscribe = useCallback(async (item: EventProps, userId: string) => {
+      if (subscription) {
+         const aux = [...subscription, item];
          setSubscription(aux);
+
          await AsyncStorage.setItem(
             `@myEvents:subscription${userId}`,
             JSON.stringify(aux),
          );
-      },
-      [],
-   );
+      } else {
+         setSubscription([item]);
+         await AsyncStorage.setItem(
+            `@myEvents:subscription${userId}`,
+            JSON.stringify(item),
+         );
+      }
+   }, []);
+
+   const unSubscribe = useCallback(async (item: EventProps, userId: string) => {
+      const aux = subscription.filter(data => data.id !== item.id);
+      setSubscription(aux);
+      await AsyncStorage.setItem(
+         `@myEvents:subscription${userId}`,
+         JSON.stringify(aux),
+      );
+   }, []);
 
    const loadSubscription = async (userId: string) => {
       const mySubscription = await AsyncStorage.getItem(
@@ -102,8 +96,8 @@ export const AppDataProvider: React.FC<ChildrenProps> = ({ children }) => {
          value={{
             eventsData: data,
             mySubscriptionData: subscription,
-            handleUnsubscribe,
-            handleSubscribe,
+            unSubscribe,
+            subscribe,
          }}>
          {children}
       </AppDataContext.Provider>
