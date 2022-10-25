@@ -17,6 +17,10 @@ import { FormikProps, useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '~/hooks/auth';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamsAuth } from '~/router/types';
+
+type SignInScreenProp = StackNavigationProp<RootStackParamsAuth, 'SignIn'>;
 
 const SignInSchema = Yup.object().shape({
    email: Yup.string().email('Email inválido').required(''),
@@ -29,7 +33,7 @@ interface SignInFormValues {
 }
 
 export const SignIn: React.FC = () => {
-   const navigation = useNavigation();
+   const navigation = useNavigation<SignInScreenProp>();
    const { signIn } = useAuth();
    const [securityInput, setSecurityInput] = useState(true);
    const [loading, setLoading] = useState(false);
@@ -110,7 +114,7 @@ export const SignIn: React.FC = () => {
                <Text style={styles.textFooter}>Não tem conta ? </Text>
                <TouchableOpacity
                   activeOpacity={0.7}
-                  onPress={() => navigation.navigate('SignUp' as never)}>
+                  onPress={() => navigation.navigate('SignUp')}>
                   <Text
                      style={{
                         ...styles.textFooter,

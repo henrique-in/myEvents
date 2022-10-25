@@ -16,10 +16,16 @@ import { styles } from './styles';
 import { EventProps, useAppData } from '~/hooks/appData';
 import { color } from '@rneui/base';
 import { CardEvents, Header } from '~/components';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamsPrivate } from '~/router/types';
+
+type HomeScreenProp = StackNavigationProp<RootStackParamsPrivate, 'Home'>;
 
 export const Home: React.FC = () => {
-   const { user } = useAuth();
+   const { user, signOut } = useAuth();
    const { eventsData } = useAppData();
+   const navigation = useNavigation<HomeScreenProp>();
    const [data, setData] = useState<EventProps[]>();
    const [loading, setLoading] = useState(true);
    const [search, setSearch] = useState('');
@@ -36,7 +42,14 @@ export const Home: React.FC = () => {
    };
 
    const renderItem = ({ item, index }: ListRenderItemInfo<EventProps>) => {
-      return <CardEvents item={item} />;
+      return (
+         <CardEvents
+            item={item}
+            onPress={() =>
+               navigation.navigate('EventDetails', { params: item })
+            }
+         />
+      );
    };
 
    useEffect(() => {
@@ -92,8 +105,8 @@ export const Home: React.FC = () => {
                renderItem={renderItem}
             />
             {/* <TouchableOpacity onPress={() => signOut()}>
-            <Text>Home</Text>
-         </TouchableOpacity> */}
+               <Text>Home</Text>
+            </TouchableOpacity> */}
          </View>
       </View>
    );

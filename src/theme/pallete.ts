@@ -5,5 +5,7 @@ export const pallete = {
   metallicSilver:"#a6a3b8",
   white:"#FFFFFF",
   red:"#f44336",
-  black:"#000000"
+  black:"#000000",
+  white_opacity: 'rgba(255,255,255, 0.3);',
+  blackOpacity: 'rgba(0,0,0,0.8)',
 }

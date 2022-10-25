@@ -57,12 +57,7 @@ export const SignUp: React.FC = () => {
       validateOnMount: true,
       onSubmit: values =>
          new Promise(async () => {
-            setLoading(true);
-            signUp(values)
-               .then(res => {})
-               .catch(err => {
-                  setLoading(false);
-               });
+            signUp(values);
          }),
    });
    return (
@@ -90,6 +85,7 @@ export const SignUp: React.FC = () => {
                   />
                   <InputForm
                      label="Email"
+                     placeholder="example@example.com"
                      error={errors.email}
                      onChangeText={handleChange('email')}
                   />
@@ -103,7 +99,7 @@ export const SignUp: React.FC = () => {
                         />
                      }
                      label="Senha"
-                     placeholder=""
+                     placeholder="********"
                      onChangeText={handleChange('password')}
                      error={errors.password}
                      secureTextEntry={securityInput}

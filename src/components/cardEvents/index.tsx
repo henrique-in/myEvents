@@ -1,17 +1,23 @@
 import moment from 'moment';
 import React from 'react';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import {
+   Image,
+   Text,
+   TouchableOpacity,
+   TouchableOpacityProps,
+   View,
+} from 'react-native';
 import { EventProps } from '~/hooks/appData';
 import { colors } from '~/theme/colors';
 
 import { styles } from './styles';
-interface Props {
+interface Props extends TouchableOpacityProps {
    item: EventProps;
 }
 
-export const CardEvents: React.FC<Props> = ({ item }) => {
+export const CardEvents: React.FC<Props> = ({ item, ...rest }) => {
    return (
-      <TouchableOpacity activeOpacity={0.8} style={styles.container}>
+      <TouchableOpacity {...rest} activeOpacity={0.8} style={styles.container}>
          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <View style={{ width: '30%', marginRight: 20 }}>
                <Image source={{ uri: item.image }} style={styles.image} />

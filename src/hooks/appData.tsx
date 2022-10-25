@@ -19,10 +19,14 @@ export interface EventProps {
    description: string;
    address: string;
    city: string;
+   amount: string;
 }
 
 interface AppDataContextData {
    eventsData: EventProps[];
+   mySubscription: EventProps[];
+   handleSubscribe: (item: EventProps) => void;
+   handleUnsubscribe: (item: EventProps) => void;
 }
 
 const AppDataContext = createContext<AppDataContextData>(
@@ -49,6 +53,7 @@ export const AppDataProvider: React.FC<ChildrenProps> = ({ children }) => {
    }, []);
 
    const handleSubscribe = useCallback(async (item: EventProps) => {
+      // console.log(item);
       if (subscription) {
          const aux = [...subscription, item];
          setSubscription(aux);
@@ -76,11 +81,17 @@ export const AppDataProvider: React.FC<ChildrenProps> = ({ children }) => {
       const mySubscription = await AsyncStorage.getItem(
          '@myEvents:subscription',
       );
-      mySubscription ? JSON.parse(mySubscription) : [];
+      return mySubscription ? JSON.parse(mySubscription) : [];
    };
 
    return (
-      <AppDataContext.Provider value={{ eventsData: data }}>
+      <AppDataContext.Provider
+         value={{
+            eventsData: data,
+            mySubscription: subscription,
+            handleUnsubscribe,
+            handleSubscribe,
+         }}>
          {children}
       </AppDataContext.Provider>
    );
