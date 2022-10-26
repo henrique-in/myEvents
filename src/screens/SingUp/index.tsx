@@ -40,9 +40,9 @@ export const SignUp: React.FC = () => {
    const [loading, setLoading] = useState(false);
 
    const initialValues: SignUpFormValues = {
-      name: 'Henrique',
-      email: 'henrique@email.com',
-      password: '12345678',
+      name: '',
+      email: '',
+      password: '',
    };
 
    const {
@@ -57,7 +57,11 @@ export const SignUp: React.FC = () => {
       validateOnMount: true,
       onSubmit: values =>
          new Promise(async () => {
-            signUp(values);
+            setLoading(true);
+            setTimeout(() => {
+               signUp(values);
+               setLoading(false);
+            }, 1500);
          }),
    });
    return (
@@ -111,7 +115,6 @@ export const SignUp: React.FC = () => {
                title={'Cadastrar'}
                titleStyle={{ fontWeight: 'bold' }}
                loading={loading}
-               disabled={loading}
                buttonStyle={{
                   borderRadius: 10,
                   height: 60,

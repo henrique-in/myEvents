@@ -31,12 +31,14 @@ interface AuthContextData {
    signIn(credentials: SignInCredentials): Promise<void>;
    signUp(dataUser: SignUpData): Promise<void>;
    signOut(): void;
+   updateUser(userData: User): void;
 }
 
 interface User {
    id: string | number[];
    name: string;
    email: string;
+   password?: string;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -104,15 +106,15 @@ export const AuthProvider: React.FC<ChildrenProps> = ({ children }) => {
          email: data.email,
       };
 
-      const users = result ? [...userRegisters, userData] : [userData];
+      const users = result
+         ? [...userRegisters, { ...userData, password: data.password }]
+         : [{ ...userData, password: data.password }];
 
-      setTimeout(async () => {
-         await AsyncStorage.multiSet([
-            ['@myEvents:user', JSON.stringify(userData)],
-            ['@myEvents:users', JSON.stringify(users)],
-         ]);
-         setData({ user: userData });
-      }, 2000);
+      await AsyncStorage.multiSet([
+         ['@myEvents:user', JSON.stringify(userData)],
+         ['@myEvents:users', JSON.stringify(users)],
+      ]);
+      setData({ user: userData });
    }, []);
 
    const signOut = useCallback(async () => {
@@ -121,9 +123,49 @@ export const AuthProvider: React.FC<ChildrenProps> = ({ children }) => {
       setData({} as AuthState);
    }, []);
 
+   const updateUser = useCallback(async (item: User) => {
+      const response = await AsyncStorage.getItem('@myEvents:users');
+      const users = JSON.parse(response);
+      const otherUsers = users.filter(
+         (data: { id: string | number[] }) => data.id !== item.id,
+      );
+      const myUserDataComplete = users.filter(
+         (data: { id: string | number[] }) => data.id === item.id,
+      );
+
+      const userDataStoreUpdate = {
+         id: item.id,
+         name: item.name ? item.name : myUserDataComplete[0].name,
+         email: item.email ? item.email : myUserDataComplete[0].email,
+         password: item.password
+            ? item.password
+            : myUserDataComplete[0].password,
+      };
+
+      const myUserData = {
+         id: item.id,
+         name: item.name ? item.name : myUserDataComplete[0].name,
+         email: item.email ? item.email : myUserDataComplete[0].email,
+      };
+
+      const array = [...otherUsers, userDataStoreUpdate];
+
+      await AsyncStorage.setItem('@myEvents:users', JSON.stringify(array));
+      await AsyncStorage.setItem('@myEvents:user', JSON.stringify(myUserData));
+
+      setData({ user: myUserData });
+   }, []);
+
    return (
       <AuthContext.Provider
-         value={{ user: data.user, loading, signIn, signOut, signUp }}>
+         value={{
+            user: data.user,
+            loading,
+            signIn,
+            signOut,
+            signUp,
+            updateUser,
+         }}>
          {children}
       </AuthContext.Provider>
    );

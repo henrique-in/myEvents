@@ -38,9 +38,14 @@ export const SignIn: React.FC = () => {
    const [securityInput, setSecurityInput] = useState(true);
    const [loading, setLoading] = useState(false);
 
+   // const initialValues: SignInFormValues = {
+   //    email: 'henrique@email.com',
+   //    password: '12345678',
+   // };
+
    const initialValues: SignInFormValues = {
-      email: 'henrique@email.com',
-      password: '12345678',
+      email: '',
+      password: '',
    };
 
    const {
@@ -56,9 +61,8 @@ export const SignIn: React.FC = () => {
       onSubmit: values =>
          new Promise(async () => {
             setLoading(true);
-            signIn(values)
-               .then()
-               .catch(err => setLoading(false));
+            signIn(values);
+            setLoading(false);
          }),
    });
 

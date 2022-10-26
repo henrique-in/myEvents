@@ -1,9 +1,15 @@
 import React from 'react';
-import { AntDesign, MaterialIcons } from '@expo/vector-icons';
+import { AntDesign, MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Platform } from 'react-native';
 import { colors } from '~/theme/colors';
-import { EventDetails, Home, MySubscriptions, Ticket } from '~/screens';
+import {
+   Account,
+   EventDetails,
+   Home,
+   MySubscriptions,
+   Ticket,
+} from '~/screens';
 import { createStackNavigator } from '@react-navigation/stack';
 
 const Tab = createBottomTabNavigator();
@@ -54,13 +60,13 @@ export const PrivateRoutes = () => (
          options={{
             tabBarLabel: '',
             tabBarIcon: ({ color }) => (
-               <MaterialIcons name="event-available" size={28} color={color} />
+               <FontAwesome5 name="ticket-alt" size={24} color={color} />
             ),
          }}
       />
       <Tab.Screen
          name="account"
-         component={Home}
+         component={Account}
          options={{
             tabBarLabel: '',
             tabBarIcon: ({ color }) => (
