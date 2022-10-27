@@ -80,7 +80,7 @@ export const Ticket: React.FC = () => {
                <Text style={styles.title}>Nome</Text>
                <Text style={styles.subtitle}>{user.name}</Text>
                <Text style={styles.title}>Preço</Text>
-               <Text style={styles.subtitle}>{params?.amount}</Text>
+               <Text style={styles.subtitle}>{params?.price}</Text>
             </View>
             <MaterialCommunityIcons
                name="qrcode-scan"

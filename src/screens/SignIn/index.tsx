@@ -4,6 +4,7 @@ import {
    Keyboard,
    KeyboardAvoidingView,
    Platform,
+   ScrollView,
    Text,
    TouchableOpacity,
    TouchableWithoutFeedback,
@@ -38,11 +39,6 @@ export const SignIn: React.FC = () => {
    const [securityInput, setSecurityInput] = useState(true);
    const [loading, setLoading] = useState(false);
 
-   // const initialValues: SignInFormValues = {
-   //    email: 'henrique@email.com',
-   //    password: '12345678',
-   // };
-
    const initialValues: SignInFormValues = {
       email: '',
       password: '',
@@ -71,64 +67,66 @@ export const SignIn: React.FC = () => {
          <KeyboardAvoidingView
             style={styles.container}
             behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-            <Text style={styles.title}>Olá, {'\n'}Seja bem-vindo</Text>
-            <View
-               style={{
-                  height: '60%',
-                  paddingTop: 70,
-               }}>
-               <View style={{ marginVertical: 40 }}>
-                  <InputForm
-                     label="Email"
-                     error={errors.email}
-                     maxLength={13}
-                     onChangeText={handleChange('email')}
-                  />
-                  <InputForm
-                     rightIcon={
-                        <Feather
-                           name={securityInput ? 'eye-off' : 'eye'}
-                           size={24}
-                           color="black"
-                           onPress={() => setSecurityInput(!securityInput)}
-                        />
-                     }
-                     label="Senha"
-                     placeholder=""
-                     onChangeText={handleChange('password')}
-                     error={errors.password}
-                     secureTextEntry={securityInput}
-                  />
-               </View>
-            </View>
-            <Button
-               activeOpacity={0.7}
-               title={'Entrar'}
-               titleStyle={{ fontWeight: 'bold' }}
-               loading={loading}
-               buttonStyle={{
-                  borderRadius: 10,
-                  height: 60,
-                  backgroundColor: colors.primary,
-               }}
-               onPress={() => handleSubmit()}
-            />
+            <ScrollView showsVerticalScrollIndicator={false}>
+               <View
+                  style={{
+                     height: '100%',
+                     paddingTop: 70,
+                  }}>
+                  <Text style={styles.title}>Olá, {'\n'}Seja bem-vindo</Text>
 
-            <View style={styles.footer}>
-               <Text style={styles.textFooter}>Não tem conta ? </Text>
-               <TouchableOpacity
-                  activeOpacity={0.7}
-                  onPress={() => navigation.navigate('SignUp')}>
-                  <Text
-                     style={{
-                        ...styles.textFooter,
-                        fontWeight: 'bold',
-                        color: colors.primary,
-                     }}>
-                     Cadastre-se
-                  </Text>
-               </TouchableOpacity>
-            </View>
+                  <View style={{ marginVertical: 40 }}>
+                     <InputForm
+                        label="Email"
+                        error={errors.email}
+                        maxLength={13}
+                        onChangeText={handleChange('email')}
+                     />
+                     <InputForm
+                        rightIcon={
+                           <Feather
+                              name={securityInput ? 'eye-off' : 'eye'}
+                              size={24}
+                              color="black"
+                              onPress={() => setSecurityInput(!securityInput)}
+                           />
+                        }
+                        label="Senha"
+                        placeholder=""
+                        onChangeText={handleChange('password')}
+                        error={errors.password}
+                        secureTextEntry={securityInput}
+                     />
+                  </View>
+                  <Button
+                     activeOpacity={0.7}
+                     title={'Entrar'}
+                     titleStyle={{ fontWeight: 'bold' }}
+                     loading={loading}
+                     buttonStyle={{
+                        borderRadius: 10,
+                        height: 60,
+                        backgroundColor: colors.primary,
+                     }}
+                     onPress={() => handleSubmit()}
+                  />
+                  <View style={styles.footer}>
+                     <Text style={styles.textFooter}>Não tem conta ? </Text>
+                     <TouchableOpacity
+                        activeOpacity={0.7}
+                        onPress={() => navigation.navigate('SignUp')}>
+                        <Text
+                           style={{
+                              ...styles.textFooter,
+                              fontWeight: 'bold',
+                              color: colors.primary,
+                           }}>
+                           Cadastre-se
+                        </Text>
+                     </TouchableOpacity>
+                  </View>
+               </View>
+            </ScrollView>
          </KeyboardAvoidingView>
       </TouchableWithoutFeedback>
    );
