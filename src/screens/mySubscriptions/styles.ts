@@ -23,5 +23,17 @@ export const styles = StyleSheet.create({
  },
   textFooter:{
     fontSize:16,
-  }
+  },
+  notFoundText:{
+    textAlign:"center",
+    color:colors.textH2,
+    fontWeight:"900",
+    fontSize:15,
+    marginTop:20
+  },
+  notFoundView:{
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+ }
 });

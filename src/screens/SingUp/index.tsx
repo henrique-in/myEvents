@@ -4,6 +4,7 @@ import {
    Keyboard,
    KeyboardAvoidingView,
    Platform,
+   ScrollView,
    Text,
    TouchableOpacity,
    TouchableWithoutFeedback,
@@ -57,7 +58,11 @@ export const SignUp: React.FC = () => {
       validateOnMount: true,
       onSubmit: values =>
          new Promise(async () => {
-            signUp(values);
+            setLoading(true);
+            setTimeout(() => {
+               signUp(values);
+               setLoading(false);
+            }, 1500);
          }),
    });
    return (
@@ -70,55 +75,55 @@ export const SignUp: React.FC = () => {
                onPress={() => navigation.goBack()}>
                <Entypo name="chevron-small-left" size={40} color="black" />
             </TouchableOpacity>
-
-            <View
-               style={{
-                  height: '60%',
-                  paddingTop: 70,
-               }}>
-               <View style={{ marginVertical: 40 }}>
-                  <InputForm
-                     label="Nome"
-                     placeholder="Fulano da Silva"
-                     error={errors.name}
-                     onChangeText={handleChange('name')}
-                  />
-                  <InputForm
-                     label="Email"
-                     placeholder="example@example.com"
-                     error={errors.email}
-                     onChangeText={handleChange('email')}
-                  />
-                  <InputForm
-                     rightIcon={
-                        <Feather
-                           name={securityInput ? 'eye-off' : 'eye'}
-                           size={24}
-                           color="black"
-                           onPress={() => setSecurityInput(!securityInput)}
-                        />
-                     }
-                     label="Senha"
-                     placeholder="********"
-                     onChangeText={handleChange('password')}
-                     error={errors.password}
-                     secureTextEntry={securityInput}
+            <ScrollView showsVerticalScrollIndicator={false}>
+               <View
+                  style={{
+                     height: '100%',
+                     paddingTop: 70,
+                  }}>
+                  <View style={{ marginVertical: 40 }}>
+                     <InputForm
+                        label="Nome"
+                        placeholder="Fulano da Silva"
+                        error={errors.name}
+                        onChangeText={handleChange('name')}
+                     />
+                     <InputForm
+                        label="Email"
+                        placeholder="example@example.com"
+                        error={errors.email}
+                        onChangeText={handleChange('email')}
+                     />
+                     <InputForm
+                        rightIcon={
+                           <Feather
+                              name={securityInput ? 'eye-off' : 'eye'}
+                              size={24}
+                              color="black"
+                              onPress={() => setSecurityInput(!securityInput)}
+                           />
+                        }
+                        label="Senha"
+                        placeholder="********"
+                        onChangeText={handleChange('password')}
+                        error={errors.password}
+                        secureTextEntry={securityInput}
+                     />
+                  </View>
+                  <Button
+                     activeOpacity={0.7}
+                     title={'Cadastrar'}
+                     titleStyle={{ fontWeight: 'bold' }}
+                     loading={loading}
+                     buttonStyle={{
+                        borderRadius: 10,
+                        height: 60,
+                        backgroundColor: colors.primary,
+                     }}
+                     onPress={() => handleSubmit()}
                   />
                </View>
-            </View>
-            <Button
-               activeOpacity={0.7}
-               title={'Cadastrar'}
-               titleStyle={{ fontWeight: 'bold' }}
-               loading={loading}
-               disabled={loading}
-               buttonStyle={{
-                  borderRadius: 10,
-                  height: 60,
-                  backgroundColor: colors.primary,
-               }}
-               onPress={() => handleSubmit()}
-            />
+            </ScrollView>
          </KeyboardAvoidingView>
       </TouchableWithoutFeedback>
    );

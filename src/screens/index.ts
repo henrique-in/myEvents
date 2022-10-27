@@ -4,3 +4,4 @@ export { Home } from './Home';
 export { MySubscriptions } from './mySubscriptions';
 export { EventDetails } from './EventDetails';
 export { Ticket } from './Ticket';
+export {Account} from './Account'

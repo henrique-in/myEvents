@@ -49,7 +49,7 @@ interface Props {
 
 export const FormPurchase: React.FC<Props> = ({ item, nextStep, onCancel }) => {
    const { user } = useAuth();
-   const { handleSubscribe } = useAppData();
+   const { subscribe } = useAppData();
    const [loading, setLoading] = useState(false);
    const initialValues: PurchaseFormValues = {
       numberCard: '',
@@ -72,7 +72,7 @@ export const FormPurchase: React.FC<Props> = ({ item, nextStep, onCancel }) => {
       onSubmit: values =>
          new Promise(async () => {
             setLoading(true);
-            handleSubscribe(item, user.id);
+            subscribe(item, user.id);
             setTimeout(() => {
                setLoading(false);
                nextStep();

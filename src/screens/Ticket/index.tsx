@@ -1,20 +1,30 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
-import React from 'react';
+import React, { useState } from 'react';
 import { Image, Text, View } from 'react-native';
-import { HeaderEvent } from '~/components';
+import { HeaderEvent, ModalOption } from '~/components';
 import { useAuth } from '~/hooks/auth';
 import { MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';
 import { styles } from './styles';
 import moment from 'moment';
 import { colors } from '~/theme/colors';
 import { Button } from '@rneui/base';
+import { useAppData } from '~/hooks/appData';
 
 const barcode = require('~/components/img/barcode.png');
 export const Ticket: React.FC = () => {
    const { user } = useAuth();
+   const { unSubscribe } = useAppData();
    const navigation = useNavigation();
    const route = useRoute();
    const { params } = route.params;
+
+   const [visibleModal, setVisibleModal] = useState(false);
+
+   const handleRemoveSubscription = () => {
+      setVisibleModal(false);
+      unSubscribe(params, user.id);
+      navigation.goBack();
+   };
 
    return (
       <View style={styles.container}>
@@ -51,6 +61,7 @@ export const Ticket: React.FC = () => {
                   title={'Cancelar inscrição'}
                   type="clear"
                   titleStyle={{ color: colors.errors }}
+                  onPress={() => setVisibleModal(true)}
                />
                <View style={styles.ticketBorderLeft}>
                   <View style={styles.contentBorderLeft}>
@@ -69,7 +80,7 @@ export const Ticket: React.FC = () => {
                <Text style={styles.title}>Nome</Text>
                <Text style={styles.subtitle}>{user.name}</Text>
                <Text style={styles.title}>Preço</Text>
-               <Text style={styles.subtitle}>{params?.amount}</Text>
+               <Text style={styles.subtitle}>{params?.price}</Text>
             </View>
             <MaterialCommunityIcons
                name="qrcode-scan"
@@ -77,6 +88,12 @@ export const Ticket: React.FC = () => {
                color="black"
             />
          </View>
+         <ModalOption
+            title="Tem certeza que deseja cancelar o ingresso ?"
+            isVisible={visibleModal}
+            leftOption={() => handleRemoveSubscription()}
+            rightOption={() => setVisibleModal(false)}
+         />
       </View>
    );
 };
